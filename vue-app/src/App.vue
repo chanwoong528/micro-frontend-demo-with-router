@@ -1,7 +1,7 @@
 <template>
     <div class="vue-app">
-        <h1>Vue Mikro Frontend</h1>
-        <p>Bu bileşen Vue.js ile oluşturulmuştur.</p>
+        <h1>Vue Micro Frontend</h1>
+        <p>This component is created with Vue.js</p>
         <div class="buttons">
             <Button text="Primary Button" variant="primary" @click="handleClick('primary')" />
             <Button text="Secondary Button" variant="secondary" @click="handleClick('secondary')" />
@@ -21,7 +21,7 @@ export default defineComponent({
     },
     setup() {
         const handleClick = (type: string) => {
-            alert(`${type} butona tıklandı!`)
+            alert(`${type} button clicked!`)
         }
 
         return {

@@ -1,15 +1,15 @@
 <template>
     <div class="home">
-        <h2>Hoş Geldiniz</h2>
-        <p>Bu uygulama, Vue.js ve React mikro frontendlerini bir arada kullanan bir container uygulamasıdır.</p>
+        <h2>Welcome</h2>
+        <p>This application is a container application that uses Vue.js and React micro frontends together.</p>
         <div class="cards">
             <div class="card" @click="$router.push('/vue')">
-                <h3>Vue.js Uygulaması</h3>
-                <p>Vue.js ile oluşturulmuş mikro frontend'i görüntülemek için tıklayın.</p>
+                <h3>Vue.js Application</h3>
+                <p>Click to view the micro frontend created with Vue.js</p>
             </div>
             <div class="card" @click="$router.push('/react')">
-                <h3>React Uygulaması</h3>
-                <p>React ile oluşturulmuş mikro frontend'i görüntülemek için tıklayın.</p>
+                <h3>React Application</h3>
+                <p>Click to view the micro frontend created with React</p>
             </div>
         </div>
     </div>

@@ -9,7 +9,7 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({
-  text = 'Tıkla',
+  text = 'Click',
   variant = 'primary',
   onClick,
   children

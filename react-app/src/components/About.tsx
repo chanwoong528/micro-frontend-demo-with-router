@@ -3,8 +3,8 @@ import React from 'react';
 const About: React.FC = () => {
   return (
     <div>
-      <h2>Hakkında</h2>
-      <p>Bu React mikro ön ucunun hakkında sayfasıdır.</p>
+      <h2>About</h2>
+      <p>This is the about page of React micro frontend.</p>
     </div>
   );
 };

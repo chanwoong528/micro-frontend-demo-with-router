@@ -1,10 +1,10 @@
 <template>
     <div class="container">
-        <h1>Mikro Frontend Container</h1>
+        <h1>Micro Frontend Container</h1>
         <nav>
-            <router-link to="/">Ana Sayfa</router-link> |
-            <router-link to="/vue">Vue Uygulaması</router-link> |
-            <router-link to="/react">React Uygulaması</router-link>
+            <router-link to="/">Home</router-link> |
+            <router-link to="/vue">Vue App</router-link> |
+            <router-link to="/react">React App</router-link>
         </nav>
         <router-view></router-view>
     </div>

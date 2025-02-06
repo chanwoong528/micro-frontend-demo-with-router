@@ -12,7 +12,7 @@ export default defineComponent({
     props: {
         text: {
             type: String,
-            default: 'Tıkla'
+            default: 'Click'
         },
         variant: {
             type: String,
