@@ -1,75 +1,131 @@
-# Mikro Frontend Mimarisi - Vue ve React
+# 🚀 Vue & React Micro Frontend Architecture
 
-Bu proje, Vue.js container uygulaması içerisinde Vue.js ve React mikro frontendlerini barındıran bir mikro frontend mimarisi örneğidir.
+A modern micro frontend architecture example that integrates Vue.js and React micro frontends within a Vue.js container application using Module Federation.
 
-## Proje Yapısı
+## 🏗️ Architecture
 
 ```
 .
-├── container/         # Vue.js container uygulaması
-├── vue-app/          # Vue.js mikro frontend
-└── react-app/        # React mikro frontend
+├── 📦 container/         # Main container application (Vue 3 + TypeScript)
+├── 📦 vue-app/          # Vue.js micro frontend
+└── 📦 react-app/        # React micro frontend
 ```
 
-## Başlangıç
+## 🌟 Features
 
-Her bir uygulamayı ayrı terminal penceresinde çalıştırmanız gerekmektedir.
+- **Framework Agnostic**: Seamlessly integrates Vue and React applications
+- **Module Federation**: Utilizes Webpack 5's Module Federation with Vite
+- **TypeScript Support**: Full type safety across applications
+- **Independent Deployment**: Each micro frontend can be deployed independently
+- **Optimized Build**: Smart chunk management for shared dependencies
+- **Hot Module Replacement**: Instant updates during development
+- **Framework Bridge**: Custom adapter pattern for rendering React components in Vue
 
-### 1. Vue Mikro Frontend (Port: 3001)
+## 🛠️ Technologies
+
+- **Container**: Vue 3 + TypeScript + Vite
+- **Micro Frontends**: Vue 3 & React 18
+- **Module Federation**: @originjs/vite-plugin-federation
+- **Build Tool**: Vite
+- **Router**: Vue Router
+- **Type Checking**: TypeScript
+
+## 🚀 Getting Started
+
+Run each application in a separate terminal window:
+
+### 1. Vue Micro Frontend (Port: 3001)
 
 ```bash
 cd vue-app
 npm install
-npm run start-mf  # Bu komut önce build alıp sonra preview modunda çalıştıracak
+npm run build
+npm run preview -- --port 3001
 ```
 
-### 2. React Mikro Frontend (Port: 3002)
+### 2. React Micro Frontend (Port: 3002)
 
 ```bash
 cd react-app
 npm install
-npm run start-mf  # Bu komut önce build alıp sonra preview modunda çalıştıracak
+npm run build
+npm run preview -- --port 3002
 ```
 
-### 3. Container Uygulaması (Port: 3000)
+### 3. Container Application (Port: 3000)
 
 ```bash
 cd container
 npm install
-npm run dev
+npm run dev -- --port 3000
 ```
 
-## Geliştirme
+## 🌐 Access Points
 
-- Container uygulaması: http://localhost:3000
-- Vue mikro frontend: http://localhost:3001
-- React mikro frontend: http://localhost:3002
+- **Container**: [http://localhost:3000](http://localhost:3000)
+- **Vue App**: [http://localhost:3001](http://localhost:3001)
+- **React App**: [http://localhost:3002](http://localhost:3002)
 
-## Teknolojiler
+## 🏗️ Architecture Details
 
-- Vite
-- Vue.js 3
-- React
-- TypeScript
-- Module Federation
+### Module Federation Configuration
 
-## Özellikler
+The container application dynamically loads micro frontends at runtime:
 
-- Her uygulama bağımsız olarak geliştirilebilir ve çalıştırılabilir
-- Module Federation ile bileşen paylaşımı
-- TypeScript desteği
-- CORS yapılandırması
-- Paylaşılan bağımlılıklar (Vue, React, Vue Router)
+```typescript
+// container/vite.config.ts
+federation({
+    name: 'host',
+    remotes: {
+        vueApp: "http://localhost:3001/remoteEntry.js",
+        reactApp: "http://localhost:3002/remoteEntry.js"
+    },
+    shared: ['vue']
+})
+```
 
-## Önemli Notlar
+### React-Vue Bridge
 
-1. Mikro frontendler (vue-app ve react-app) `npm run start-mf` komutu ile çalıştırılmalıdır. Bu komut:
-   - Önce uygulamayı build eder (`npm run build`)
-   - Sonra preview modunda çalıştırır (`npm run preview`)
-   - Bu sayede `remoteEntry.js` dosyası oluşturulur ve servis edilir
+A custom adapter pattern is used to render React components within Vue:
 
-2. Container uygulaması normal development modunda (`npm run dev`) çalıştırılabilir
+```typescript
+// ReactWrapper.vue
+const reactRoot = ref<HTMLElement | null>(null)
+let root: ReactDOM.Root | null = null
 
-3. Geliştirme sırasında önce mikro frontendlerin çalıştırılması, sonra container uygulamasının başlatılması önerilir
+onMounted(() => {
+    if (reactRoot.value) {
+        root = ReactDOM.createRoot(reactRoot.value)
+        root.render(React.createElement(props.component))
+    }
+})
+```
 
-4. Her uygulama kendi bağımsız state yönetimini ve routing mekanizmasını içerir 
+## 📦 Shared Dependencies
+
+- Vue micro frontend: `vue`
+- React micro frontend: `react`, `react-dom`
+
+## 🔄 Development Workflow
+
+1. Develop micro frontends independently
+2. Integrate and test in the container
+3. Deploy each application separately
+
+## ⚠️ Important Notes
+
+1. Start micro frontends first during development
+2. Launch the container application last
+3. Each application should have its own CI/CD pipeline for production
+
+## 🤝 Contributing
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+MIT License - see the [LICENSE](LICENSE) file for details. 
