@@ -7,7 +7,7 @@ export default defineConfig({
     plugins: [
         react(),
         federation({
-            name: 'reactApp',
+            name: 'remote',
             filename: 'remoteEntry.js',
             exposes: {
                 // Container uygulamasına açılan bileşenler
@@ -17,29 +17,10 @@ export default defineConfig({
             shared: ['react', 'react-dom'] // Paylaşılan bağımlılıklar
         })
     ],
-    server: {
-        port: 3002,
-        cors: true,
-        headers: {
-            'Access-Control-Allow-Origin': '*'
-        }
-    },
-    preview: {
-        port: 3002,
-        cors: true,
-        headers: {
-            'Access-Control-Allow-Origin': '*'
-        }
-    },
     build: {
         modulePreload: false,
         target: 'esnext',
         minify: false,
-        cssCodeSplit: false,
-        rollupOptions: {
-            output: {
-                format: 'esm'
-            }
-        }
+        cssCodeSplit: false
     }
 }) 

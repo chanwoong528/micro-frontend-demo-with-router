@@ -1,10 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { h } from 'vue'
 import Home from '../views/Home.vue'
-
-// @ts-ignore
-const VueApp = () => import('vueApp/App')
-// @ts-ignore
-const ReactApp = () => import('reactApp/App')
+import VueApp from 'vueApp/App'
+import ReactWrapper from '../components/ReactWrapper.vue'
+import ReactApp from 'reactApp/App'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -22,7 +21,7 @@ const router = createRouter({
         {
             path: '/react',
             name: 'react',
-            component: ReactApp
+            component: () => h(ReactWrapper, { component: ReactApp })
         }
     ]
 })
