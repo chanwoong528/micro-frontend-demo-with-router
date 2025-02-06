@@ -1,0 +1,17 @@
+.react-app {
+  padding: 20px;
+  border: 2px solid #61dafb;
+  border-radius: 8px;
+  margin: 20px;
+}
+
+h1 {
+  color: #61dafb;
+  margin-bottom: 16px;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+} 

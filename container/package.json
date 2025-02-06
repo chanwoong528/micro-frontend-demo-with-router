@@ -1,0 +1,21 @@
+{
+  "name": "container",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite --port 3000 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --port 3000 --strictPort",
+    "start": "npm run dev"
+  },
+  "dependencies": {
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.3.4",
+    "@originjs/vite-plugin-federation": "^1.3.5",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.9"
+  }
+} 
