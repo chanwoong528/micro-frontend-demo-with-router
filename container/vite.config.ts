@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import federation from '@originjs/vite-plugin-federation'
 
+// Container uygulaması için Vite konfigürasyonu
 export default defineConfig({
     plugins: [
         vue(),
@@ -20,4 +21,4 @@ export default defineConfig({
         minify: false,
         cssCodeSplit: false
     }
-})
+}) 
