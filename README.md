@@ -1,6 +1,6 @@
-# 🚀 Vue & React Micro Frontend Architecture
+# 🚀 Vue, React & Angular Micro Frontend Architecture
 
-A modern micro frontend architecture example that integrates Vue.js and React micro frontends within a Vue.js container application using Module Federation.
+A modern micro frontend architecture example that integrates Vue.js, React, and Angular micro frontends within a Vue.js container application using Module Federation.
 
 ## 🏗️ Architecture
 
@@ -8,25 +8,26 @@ A modern micro frontend architecture example that integrates Vue.js and React mi
 .
 ├── 📦 container/         # Main container application (Vue 3 + TypeScript)
 ├── 📦 vue-app/          # Vue.js micro frontend
-└── 📦 react-app/        # React micro frontend
+├── 📦 react-app/        # React micro frontend
+└── 📦 angular-app/      # Angular micro frontend
 ```
 
 ## 🌟 Features
 
-- **Framework Agnostic**: Seamlessly integrates Vue and React applications
+- **Framework Agnostic**: Seamlessly integrates Vue, React, and Angular applications
 - **Module Federation**: Utilizes Webpack 5's Module Federation with Vite
 - **TypeScript Support**: Full type safety across applications
 - **Independent Deployment**: Each micro frontend can be deployed independently
 - **Optimized Build**: Smart chunk management for shared dependencies
 - **Hot Module Replacement**: Instant updates during development
-- **Framework Bridge**: Custom adapter pattern for rendering React components in Vue
+- **Framework Bridge**: Custom adapter pattern for rendering React and Angular components in Vue
 
 ## 🛠️ Technologies
 
 - **Container**: Vue 3 + TypeScript + Vite
-- **Micro Frontends**: Vue 3 & React 18
-- **Module Federation**: @originjs/vite-plugin-federation
-- **Build Tool**: Vite
+- **Micro Frontends**: Vue 3, React 18 & Angular 19
+- **Module Federation**: @originjs/vite-plugin-federation & @angular-architects/module-federation
+- **Build Tool**: Vite & Angular CLI
 - **Router**: Vue Router
 - **Type Checking**: TypeScript
 
@@ -52,7 +53,15 @@ npm run build
 npm run preview -- --port 3002
 ```
 
-### 3. Container Application (Port: 3000)
+### 3. Angular Micro Frontend (Port: 3003)
+
+```bash
+cd angular-app
+npm install
+npm start
+```
+
+### 4. Container Application (Port: 3000)
 
 ```bash
 cd container
@@ -65,6 +74,7 @@ npm run dev -- --port 3000
 - **Container**: [http://localhost:3000](http://localhost:3000)
 - **Vue App**: [http://localhost:3001](http://localhost:3001)
 - **React App**: [http://localhost:3002](http://localhost:3002)
+- **Angular App**: [http://localhost:3003](http://localhost:3003)
 
 ## 🏗️ Architecture Details
 
@@ -78,15 +88,20 @@ federation({
     name: 'host',
     remotes: {
         vueApp: "http://localhost:3001/remoteEntry.js",
-        reactApp: "http://localhost:3002/remoteEntry.js"
+        reactApp: "http://localhost:3002/remoteEntry.js",
+        angularApp: {
+            external: 'http://localhost:3003/remoteEntry.js',
+            format: 'esm',
+            from: 'webpack'
+        }
     },
     shared: ['vue']
 })
 ```
 
-### React-Vue Bridge
+### Framework Bridges
 
-A custom adapter pattern is used to render React components within Vue:
+Custom adapter patterns are used to render React and Angular components within Vue:
 
 ```typescript
 // ReactWrapper.vue
@@ -99,12 +114,24 @@ onMounted(() => {
         root.render(React.createElement(props.component))
     }
 })
+
+// AngularWrapper.vue
+const angularRoot = ref<HTMLElement | null>(null)
+let moduleRef: any = null
+
+onMounted(async () => {
+    if (angularRoot.value) {
+        const module = await props.component()
+        moduleRef = await module.bootstrap(angularRoot.value)
+    }
+})
 ```
 
 ## 📦 Shared Dependencies
 
 - Vue micro frontend: `vue`
 - React micro frontend: `react`, `react-dom`
+- Angular micro frontend: `@angular/core`, `@angular/common`
 
 ## 🔄 Development Workflow
 
@@ -117,6 +144,7 @@ onMounted(() => {
 1. Start micro frontends first during development
 2. Launch the container application last
 3. Each application should have its own CI/CD pipeline for production
+4. Angular application requires Zone.js for proper functionality
 
 ## 🤝 Contributing
 
