@@ -7,18 +7,38 @@ export default defineConfig({
     plugins: [
         vue(),
         federation({
-            name: 'host',
+            name: 'container-app',
             remotes: {
                 vueApp: "http://localhost:3001/assets/remoteEntry.js",
-                reactApp: "http://localhost:3002/assets/remoteEntry.js"
+                reactApp: "http://localhost:3002/assets/remoteEntry.js",
+                angularApp: {
+                    external: 'http://localhost:52502/remoteEntry.js',
+                    format: 'esm',
+                    from: 'webpack'
+                }
             },
-            shared: ['vue']
+            shared: {
+                vue: {
+                    singleton: true
+                }
+            }
         })
     ],
     build: {
-        modulePreload: false,
         target: 'esnext',
+        modulePreload: false,
         minify: false,
         cssCodeSplit: false
+    },
+    server: {
+        hmr: {
+            protocol: 'ws',
+            host: 'localhost',
+            port: 3000
+        },
+        cors: true,
+        headers: {
+            'Access-Control-Allow-Origin': '*'
+        }
     }
 }) 

@@ -3,7 +3,9 @@ import { h } from 'vue'
 import Home from '../views/Home.vue'
 import VueApp from 'vueApp/App'
 import ReactWrapper from '../components/ReactWrapper.vue'
+import AngularWrapper from '../components/AngularWrapper.vue'
 import ReactApp from 'reactApp/App'
+import AngularApp from 'angularApp/App'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -22,6 +24,11 @@ const router = createRouter({
             path: '/react',
             name: 'react',
             component: () => h(ReactWrapper, { component: ReactApp })
+        },
+        {
+            path: '/angular',
+            name: 'angular',
+            component: () => h(AngularWrapper, { component: AngularApp })
         }
     ]
 })
