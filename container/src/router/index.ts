@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { h, defineAsyncComponent } from 'vue'
+import { h } from 'vue'
 import Home from '../views/Home.vue'
 import ReactWrapper from '../components/ReactWrapper.vue'
 import AngularWrapper from '../components/AngularWrapper.vue'
@@ -15,22 +15,21 @@ const router = createRouter({
         {
             path: '/vue',
             name: 'vue',
-            component: defineAsyncComponent(() => import('vueApp/App'))
+            component: () => import('vueApp/App')
         },
         {
             path: '/react',
             name: 'react',
-            component: defineAsyncComponent(async () => {
+            component: async () => {
                 const ReactApp = await import('reactApp/App')
                 return h(ReactWrapper, { component: ReactApp.default })
-            })
+            }
         },
         {
             path: '/angular',
             name: 'angular',
-            component: defineAsyncComponent(async () => {
-                const AngularApp = await import('angularApp/Module')
-                return h(AngularWrapper, { component: AngularApp.AppModule })
+            component: () => h(AngularWrapper, {
+                component: () => import('angularApp/Module').then(m => m.default || m)
             })
         }
     ]

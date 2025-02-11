@@ -4,8 +4,7 @@ module.exports = withModuleFederationPlugin({
   name: 'angularApp',
   filename: 'remoteEntry.js',
   exposes: {
-    './Module': './src/app/app.module.ts',
-    './Component': './src/app/app.component.ts'
+    './Module': './src/bootstrap.ts'
   },
   shared: shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' })
 });

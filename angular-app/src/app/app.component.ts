@@ -5,9 +5,8 @@ import { Component } from '@angular/core';
   standalone: false,
   template: `
     <h1>{{ title }}</h1>
-    <router-outlet></router-outlet>
   `
 })
 export class AppComponent {
-  title = 'angular-app';
+  title = 'angular-ap123123123p';
 }

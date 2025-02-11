@@ -3,24 +3,47 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, onUnmounted, ref } from 'vue'
+import { PropType } from 'vue'
 
 export default defineComponent({
     name: 'AngularWrapper',
     props: {
         component: {
-            type: [Object, Function],
+            type: [Function, Object] as PropType<() => Promise<any>>,
             required: true
         }
     },
     setup(props) {
         const angularRoot = ref<HTMLElement | null>(null)
+        let moduleRef: any = null
 
-        onMounted(() => {
-            if (angularRoot.value && props.component) {
-                // Angular bileşenini mount et
-                const mountPoint = document.createElement('app-root')
-                angularRoot.value.appendChild(mountPoint)
+        onMounted(async () => {
+            if (angularRoot.value && typeof props.component === 'function') {
+                const el = angularRoot.value
+                el.innerHTML = '<app-root></app-root>'
+
+                try {
+                    const module = await props.component()
+                    console.log('Yüklenen modül:', module)
+
+                    if (module?.bootstrap) {
+                        moduleRef = await module.bootstrap(el)
+                    } else {
+                        console.error('Angular modülü bootstrap fonksiyonu bulunamadı')
+                    }
+                } catch (error) {
+                    console.error('Angular modülü yüklenirken hata oluştu:', error)
+                }
+            }
+        })
+
+        onUnmounted(() => {
+            if (moduleRef) {
+                moduleRef.destroy()
+            }
+            if (angularRoot.value) {
+                angularRoot.value.innerHTML = ''
             }
         })
 
@@ -29,4 +52,4 @@ export default defineComponent({
         }
     }
 })
-</script> 
+</script>
