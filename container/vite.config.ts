@@ -12,16 +12,13 @@ export default defineConfig({
                 vueApp: "http://localhost:3001/assets/remoteEntry.js",
                 reactApp: "http://localhost:3002/assets/remoteEntry.js",
                 angularApp: {
-                    external: 'http://localhost:52502/remoteEntry.js',
+                    external: 'http://localhost:3003/remoteEntry.js',
                     format: 'esm',
-                    from: 'webpack'
+                    from: 'webpack',
+                    externalType: 'url'
                 }
             },
-            shared: {
-                vue: {
-                    singleton: true
-                }
-            }
+            shared: ['vue']
         })
     ],
     build: {

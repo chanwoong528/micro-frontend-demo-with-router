@@ -9,7 +9,7 @@ export default defineComponent({
     name: 'AngularWrapper',
     props: {
         component: {
-            type: Object,
+            type: [Object, Function],
             required: true
         }
     },
