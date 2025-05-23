@@ -18,18 +18,24 @@ const router = createRouter({
             component: () => import('vueApp/App')
         },
         {
-            path: '/react',
+            path: '/react/:pathMatch(.*)*',
             name: 'react',
             component: async () => {
                 const ReactApp = await import('reactApp/App')
+                console.log('ReactApp on Mount [info]:', ReactApp)
+
                 return h(ReactWrapper, { component: ReactApp.default })
             }
         },
         {
-            path: '/angular',
+            path: '/angular/:pathMatch(.*)*',
             name: 'angular',
-            component: () => h(AngularWrapper, {
-                component: () => import('angularApp/Module').then(m => m.default || m)
+            component: async () => h(AngularWrapper, {
+                component: async () => {
+                    const angularApp = await import('angularApp/Module').then(m => m.default || m)
+                    console.log('Angular on Mount [info]:', angularApp)
+                    return angularApp
+                }
             })
         }
     ]

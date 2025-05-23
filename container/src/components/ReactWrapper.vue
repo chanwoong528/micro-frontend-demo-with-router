@@ -4,8 +4,8 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, onUnmounted, ref } from 'vue'
-import * as React from 'react'
-import * as ReactDOM from 'react-dom/client'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
 
 export default defineComponent({
   name: 'ReactWrapper',
@@ -22,7 +22,7 @@ export default defineComponent({
     onMounted(() => {
       if (reactRoot.value) {
         root = ReactDOM.createRoot(reactRoot.value)
-        root.render(React.createElement(props.component))
+        root.render(React.createElement(props.component as React.ComponentType))
       }
     })
 
@@ -37,4 +37,4 @@ export default defineComponent({
     }
   }
 })
-</script> 
+</script>

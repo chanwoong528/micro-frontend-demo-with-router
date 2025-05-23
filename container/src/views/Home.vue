@@ -7,9 +7,13 @@
                 <h3>Vue.js Application</h3>
                 <p>Click to view the micro frontend created with Vue.js</p>
             </div>
-            <div class="card" @click="$router.push('/react')">
+            <div class="card" @click="$router.replace({path: '/react/about'})">
                 <h3>React Application</h3>
                 <p>Click to view the micro frontend created with React</p>
+            </div>
+            <div class="card" @click="$router.push('/angular/about')">
+                <h3>Angular Application</h3>
+                <p>Click to view the micro frontend created with Angular</p>
             </div>
         </div>
     </div>

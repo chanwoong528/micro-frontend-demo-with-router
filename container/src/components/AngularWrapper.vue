@@ -25,15 +25,15 @@ export default defineComponent({
 
                 try {
                     const module = await props.component()
-                    console.log('Yüklenen modül:', module)
+                    console.log('Angular on Mount [info]:', 'Yüklenen modül:', module)
 
                     if (module?.bootstrap) {
                         moduleRef = await module.bootstrap(el)
                     } else {
-                        console.error('Angular modülü bootstrap fonksiyonu bulunamadı')
+                        console.error('Angular on Mount [error]:')
                     }
                 } catch (error) {
-                    console.error('Angular modülü yüklenirken hata oluştu:', error)
+                    console.error('Angular on Mount [error]:', error)
                 }
             }
         })
