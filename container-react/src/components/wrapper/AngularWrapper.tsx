@@ -1,10 +1,6 @@
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef } from "react";
 
-// const AngularApp = React.lazy(() => import("angularApp/Module"));
-import AngularApp from "angularApp/Module";
 const AngularWrapperLoader = () => {
-  //   console.log("AngularWrapperLoader>> ", AngularApp);
-
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <AngularWrapper />
@@ -13,7 +9,6 @@ const AngularWrapperLoader = () => {
 };
 
 const AngularWrapper = () => {
-  console.log("AngularWrapperLoader");
   const angularRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,7 +19,7 @@ const AngularWrapper = () => {
           const angularApp = await import("angularApp/Module").then((m) => {
             return m.default || m;
           });
-        //   const AngularAppComponent = React.createElement(angularApp);
+
           angularApp.bootstrap(angularRef.current);
         } catch (error) {
           console.error("Angular on Mount [error]:", error);
@@ -42,7 +37,7 @@ const AngularWrapper = () => {
   return (
     <>
       <h1>angular wrapper</h1>
-      <div ref={angularRef}></div>
+      <div id="angular-app" ref={angularRef}></div>
     </>
   );
 };
