@@ -6,9 +6,11 @@ const Nav = () => {
   return (
     <div>
       <ul>
-        {RoutesList.map((route) => (
+        {RoutesList.filter((route) => route.data?.showNav).map((route) => (
           <li key={route.path}>
-            <a href={route.path}>{route.name}</a>
+            <Link to={route.navPath ? route.navPath : route.path}>
+              {route.name}
+            </Link>
           </li>
         ))}
       </ul>

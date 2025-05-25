@@ -18,7 +18,7 @@ export default defineConfig({
                     externalType: 'url'
                 }
             },
-            shared: ['react', 'react-dom', 'react-router-dom']
+            shared: ['react', 'react-dom', 'react-router-dom', 'vue', 'vue-router']
         })
     ],
     build: {

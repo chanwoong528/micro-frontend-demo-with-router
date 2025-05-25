@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import LayoutPage from "./LayoutPage";
 
 const PageNotFound = () => {
   return (
-    <div>PageNotFound</div>
-  )
-}
+    <LayoutPage>
+      <div>PageNotFound</div>
+    </LayoutPage>
+  );
+};
 
-export default PageNotFound
+export default PageNotFound;
